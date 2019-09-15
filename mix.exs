@@ -14,6 +14,7 @@ defmodule Pghr.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {Pghr, []},
       extra_applications: [:logger]
     ]
   end

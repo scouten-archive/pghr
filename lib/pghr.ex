@@ -1,18 +1,13 @@
 defmodule Pghr do
-  @moduledoc """
-  Documentation for Pghr.
-  """
+  use Application
 
-  @doc """
-  Hello world.
+  @impl true
+  def start(_type, _args) do
+    children = [
+      {Pghr.Repo, []}
+    ]
 
-  ## Examples
-
-      iex> Pghr.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: Pghr.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
