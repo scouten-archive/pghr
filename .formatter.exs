@@ -1,4 +1,3 @@
-# Used by "mix format"
 [
-  inputs: ["{mix,.formatter}.exs", "{config,lib,priv,test}/**/*.{ex,exs}"]
+  inputs: ["{mix,.formatter}.exs", "{bench,config,lib,priv,test}/**/*.{ex,exs}"]
 ]
