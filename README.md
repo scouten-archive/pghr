@@ -36,6 +36,7 @@ create item        1.36 K      734.57 μs   ±702.99%         422 μs         63
 ### Create Item Benchmark
 
 See `bench/create_item_fast.exs`.
+
    ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
 ------:|----------:|----------:|---------:|----------:|:---
   1360 | 734.57 μs |  ±702.99% |        5 |        10 | **Initial benchmark** (#1)
@@ -46,3 +47,12 @@ See `bench/create_item_fast.exs`.
   2120 | 470.70 μs |  ±194.43% |        5 |        50 |
   1780 | 560.66 μs |   ±37.77% |       10 |        40 |
    890 |   1.12 ms |  ±266.23% |       20 |        40 |
+
+### Update Item Benchmark
+
+See `bench/update_item_fast.exs`.
+
+   ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
+------:|----------:|----------:|---------:|----------:|:---
+   296 |   3.37 ms |   ±34.19% |        5 |        10 | **Initial benchmark** (#2)
+   
