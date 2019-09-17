@@ -92,3 +92,8 @@ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_ite
  21199 |    472 µs |           |       20 |        10 |
  28062 |    713 µs |           |        5 |        20 |
  29292 |   1.37 ms |           |        5 |        40 |
+   292 |   3.42 ms |   ±34.21% |        5 |        10 | **Rewrite query using Ecto** (#5)
+   164 |   6.09 ms |   ±39.47% |       10 |        10 |
+    84 |  11.90 ms |   ±30.74% |       20 |        10 |
+   275 |   3.63 ms |   ±46.30% |        5 |        20 |
+   
