@@ -6,8 +6,10 @@ Quick 'n' dirty test to see how Ecto + Postgres behave in specific microbenchmar
 
 The benchmark results described below were run on my 2015-era MacBook Pro. Tests were always run for 10 seconds with a 2-second warm-up. Varying levels of parallelism were used and noted in the test results.
 
+### For Ecto + Benchee
+
 ```
-$ mix run bench/create_item_fast.exs 
+$ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/create_item_fast.exs 
 Deleting all existing items ...
 Starting test ...
 Operating System: macOS
@@ -31,11 +33,27 @@ Name                  ips        average  deviation         median         99th 
 create item        1.36 K      734.57 μs   ±702.99%         422 μs         635 μs
 ```
 
+### For pgbench
+
+```
+$ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/create_item_fast.sql -n -c 10 -j 5 -T 10 pghr
+transaction type: pgbench/create_item_fast.sql
+scaling factor: 1
+query mode: simple
+number of clients: 10
+number of threads: 5
+duration: 10 s
+number of transactions actually processed: 206051
+latency average = 0.487 ms
+tps = 20515.651758 (including connections establishing)
+tps = 20523.650252 (excluding connections establishing)
+```
+
 ## Results
 
 ### Create Item Benchmark
 
-See `bench/create_item_fast.exs`.
+See `bench/create_item_fast.exs` or `pgbench/create_item_fast.sql`.
 
    ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
 ------:|----------:|----------:|---------:|----------:|:---
@@ -47,6 +65,14 @@ See `bench/create_item_fast.exs`.
   2120 | 470.70 μs |  ±194.43% |        5 |        50 |
   1780 | 560.66 μs |   ±37.77% |       10 |        40 |
    890 |   1.12 ms |  ±266.23% |       20 |        40 |
+ 20515 |    487 µs |           |        5 |        10 | **Initial `pgbench` test** (#3)
+ 21376 |    468 µs |           |       10 |        10 |
+ 21550 |    464 µs |           |       20 |        10 |
+ 28652 |    698 µs |           |        5 |        20 |
+ 28537 |   1.40 ms |           |        5 |        40 |
+ 28152 |   1.78 ms |           |        5 |        50 |
+ 27950 |   1.43 ms |           |       10 |        40 |
+ 28297 |   1.41 ms |           |       20 |        40 |
 
 ### Update Item Benchmark
 
