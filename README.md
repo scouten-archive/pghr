@@ -78,7 +78,17 @@ See `bench/create_item_fast.exs` or `pgbench/create_item_fast.sql`.
 
 See `bench/update_item_fast.exs`.
 
+For `pgbench`, the command was:
+
+```
+mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_items.exs && pgbench -f pgbench/update_item_fast.sql -n -c 10 -j 5 -T 10 pghr
+```
+
    ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
 ------:|----------:|----------:|---------:|----------:|:---
    296 |   3.37 ms |   ±34.19% |        5 |        10 | **Initial benchmark** (#2)
-   
+ 21694 |    461 µs |           |        5 |        10 | **Initial `pgbench` test** (#4)   
+ 20673 |    484 µs |           |       10 |        10 |
+ 21199 |    472 µs |           |       20 |        10 |
+ 28062 |    713 µs |           |        5 |        20 |
+ 29292 |   1.37 ms |           |        5 |        40 |
