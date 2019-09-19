@@ -30,16 +30,21 @@ ParallelBench.run(
     random_item_id = Enum.random(item_ids)
     random = :rand.uniform(100_000_000_000_000)
 
-    {:ok, %{num_rows: 1}} =
-      SQL.query(
-        Repo,
-        """
-        UPDATE items
-        SET mumble3 = $1
-        WHERE id = $2;
-        """,
-        ["New Mumble #{random}", random_item_id]
-      )
+    {:ok, _} =
+      Repo.transaction(fn ->
+        SQL.query!(Repo, "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;")
+
+        {:ok, %{num_rows: 1}} =
+          SQL.query(
+            Repo,
+            """
+            UPDATE items
+            SET mumble3 = $1
+            WHERE id = $2;
+            """,
+            ["New Mumble #{random}", random_item_id]
+          )
+      end)
   end,
   parallel: 10,
   duration: 10
