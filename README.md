@@ -73,10 +73,42 @@ See `bench/create_item_fast.exs` or `pgbench/create_item_fast.sql`.
  28152 |   1.78 ms |           |        5 |        50 |
  27950 |   1.43 ms |           |       10 |        40 |
  28297 |   1.41 ms |           |       20 |        40 |
+ 12333 |           |           |        5 |        10 | **Remove benchee from process** (#6)
+ 17270 |           |           |       10 |        10 |
+ 16716 |           |           |       20 |        10 |
+ 11688 |           |           |        5 |        20 |
+  9618 |           |           |       20 |        40 |
 
-### Update Item Benchmark
+### Update Item Benchmark (Using Ecto Update)
 
-See `bench/update_item_fast.exs`.
+See `bench/update_item_ecto.exs`.
+
+For `pgbench`, the command was:
+
+```
+mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_items.exs && pgbench -f pgbench/update_item_fast.sql -n -c 10 -j 5 -T 10 pghr
+```
+
+   ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
+------:|----------:|----------:|---------:|----------:|:---
+ 21694 |    461 µs |           |        5 |        10 | **Initial `pgbench` test** (#4)   
+ 20673 |    484 µs |           |       10 |        10 |
+ 21199 |    472 µs |           |       20 |        10 |
+ 28062 |    713 µs |           |        5 |        20 |
+ 29292 |   1.37 ms |           |        5 |        40 |
+   292 |   3.42 ms |   ±34.21% |        5 |        10 | **Rewrite query using Ecto** (#5)
+   164 |   6.09 ms |   ±39.47% |       10 |        10 |
+   084 |  11.90 ms |   ±30.74% |       20 |        10 |
+   275 |   3.63 ms |   ±46.30% |        5 |        20 |
+  1844 |           |           |        5 |        10 | **Remove benchee from process** (#6)
+  1866 |           |           |       10 |        10 |
+  1821 |           |           |       10 |        40 |
+  1850 |           |           |       20 |        40 |
+
+
+### Update Item Benchmark (Using Raw SQL Update)
+
+See `bench/update_item_sql.exs`.
 
 For `pgbench`, the command was:
 
@@ -92,8 +124,8 @@ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_ite
  21199 |    472 µs |           |       20 |        10 |
  28062 |    713 µs |           |        5 |        20 |
  29292 |   1.37 ms |           |        5 |        40 |
-   292 |   3.42 ms |   ±34.21% |        5 |        10 | **Rewrite query using Ecto** (#5)
-   164 |   6.09 ms |   ±39.47% |       10 |        10 |
-   084 |  11.90 ms |   ±30.74% |       20 |        10 |
-   275 |   3.63 ms |   ±46.30% |        5 |        20 |
-   
+  1660 |           |           |        5 |        10 | **Remove benchee from process** (#6)
+  1880 |           |           |       10 |        10 |
+  1785 |           |           |       10 |        40 |
+  1756 |           |           |       20 |        40 |
+  
