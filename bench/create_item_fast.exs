@@ -1,3 +1,5 @@
+alias Ecto.Adapters.SQL
+
 alias Pghr.Item
 alias Pghr.Repo
 
@@ -19,3 +21,5 @@ ParallelBench.run(
   parallel: 10,
   duration: 10
 )
+
+IO.inspect(SQL.query!(Repo, "SELECT count(*) FROM items;"), label: "\n\nCount of records now in DB")
