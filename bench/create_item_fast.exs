@@ -1,3 +1,5 @@
+alias Ecto.Adapters.SQL
+
 alias Pghr.Item
 alias Pghr.Repo
 
@@ -5,21 +7,19 @@ IO.puts("Deleting all existing items ...")
 
 Repo.delete_all(Item)
 
-IO.puts("Starting test ...")
+ParallelBench.run(
+  fn ->
+    random = :rand.uniform(100_000_000_000_000)
 
-Benchee.run(
-  %{
-    "create item" => fn ->
-      random = :rand.uniform(100_000_000_000_000)
-
-      {:ok, _} =
-        Repo.insert(%Item{
-          mumble1: "mumble",
-          mumble2: "Mumble-#{random}",
-          mumble3: "Moar Mumble #{random}"
-        })
-    end
-  },
-  parallel: 5,
-  time: 10
+    {:ok, _} =
+      Repo.insert(%Item{
+        mumble1: "mumble",
+        mumble2: "Mumble-#{random}",
+        mumble3: "Moar Mumble #{random}"
+      })
+  end,
+  parallel: 10,
+  duration: 10
 )
+
+IO.inspect(SQL.query!(Repo, "SELECT count(*) FROM items;"), label: "\n\nCount of records now in DB")
