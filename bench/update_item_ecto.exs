@@ -1,6 +1,8 @@
 alias Pghr.Item
 alias Pghr.Repo
 
+import Ecto.Query
+
 IO.puts("Deleting all existing items ...")
 
 Repo.delete_all(Item)
@@ -30,9 +32,8 @@ ParallelBench.run(
 
     {:ok, _} =
       Item
-      |> Repo.get_by(id: random_item_id)
-      |> Ecto.Changeset.change(%{mumble3: "New Mumble #{random}"})
-      |> Repo.update()
+      |> where(id: random_id)
+      |> Repo.update_all(mumble3: "New Mumble #{random}")
   end,
   parallel: 10,
   duration: 10
