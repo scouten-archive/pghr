@@ -51,33 +51,32 @@ tps = 20523.650252 (excluding connections establishing)
 
 ## Results
 
+**NOTE:** As of PR #6, I've removed previous benchmarks and re-run the corresponding `pgbench` results. This is because:
+
+* Feedback from the community suggested that this use of `benchee` was outside of its intended design space.
+* I upgraded Postgres from 9.6 to 11.5 on my machine. The `pgbench` results remained similar in the new tests.
+
 ### Create Item Benchmark
 
 See `bench/create_item_fast.exs` or `pgbench/create_item_fast.sql`.
 
-   ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
-------:|----------:|----------:|---------:|----------:|:---
-  1360 | 734.57 μs |  ±702.99% |        5 |        10 | **Initial benchmark** (#1)
-  1260 | 790.86 μs |  ±680.23% |       10 |        10 |
-   942 |   1.06 ms |   ±96.84% |       20 |        10 |
-  2200 | 454.16 μs |  ±115.65% |        5 |        20 |
-  2400 | 415.93 μs |   ±14.41% |        5 |        40 |
-  2120 | 470.70 μs |  ±194.43% |        5 |        50 |
-  1780 | 560.66 μs |   ±37.77% |       10 |        40 |
-   890 |   1.12 ms |  ±266.23% |       20 |        40 |
- 20515 |    487 µs |           |        5 |        10 | **Initial `pgbench` test** (#3)
- 21376 |    468 µs |           |       10 |        10 |
- 21550 |    464 µs |           |       20 |        10 |
- 28652 |    698 µs |           |        5 |        20 |
- 28537 |   1.40 ms |           |        5 |        40 |
- 28152 |   1.78 ms |           |        5 |        50 |
- 27950 |   1.43 ms |           |       10 |        40 |
- 28297 |   1.41 ms |           |       20 |        40 |
- 12333 |           |           |        5 |        10 | **Remove benchee from process** (#6)
- 17270 |           |           |       10 |        10 |
- 16716 |           |           |       20 |        10 |
- 11688 |           |           |        5 |        20 |
-  9618 |           |           |       20 |        40 |
+   ips | parallel | pool_size | What Changed? (PR #)
+------:|---------:|----------:|:---
+ 22311 |        5 |        10 | **Initial `pgbench` test** (#3)
+ 21895 |       10 |        10 |
+ 23515 |       20 |        10 |
+ 28983 |        5 |        20 |
+ 27452 |        5 |        40 |
+ 28164 |        5 |        50 |
+ 28053 |       10 |        40 |
+ 25328 |       20 |        40 |
+ 12048 |        5 |        10 | **Remove benchee from process** (#6)
+ 16185 |       10 |        10 |
+ 17210 |       20 |        10 |
+ 11742 |        5 |        20 |
+ 11964 |        5 |        40 |
+ 16706 |       10 |        40 |
+ 17427 |       20 |        40 |
 
 ### Update Item Benchmark (Using Ecto Update)
 
@@ -89,22 +88,18 @@ For `pgbench`, the command was:
 mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_items.exs && pgbench -f pgbench/update_item_fast.sql -n -c 10 -j 5 -T 10 pghr
 ```
 
-   ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
-------:|----------:|----------:|---------:|----------:|:---
- 21694 |    461 µs |           |        5 |        10 | **Initial `pgbench` test** (#4)   
- 20673 |    484 µs |           |       10 |        10 |
- 21199 |    472 µs |           |       20 |        10 |
- 28062 |    713 µs |           |        5 |        20 |
- 29292 |   1.37 ms |           |        5 |        40 |
-   292 |   3.42 ms |   ±34.21% |        5 |        10 | **Rewrite query using Ecto** (#5)
-   164 |   6.09 ms |   ±39.47% |       10 |        10 |
-   084 |  11.90 ms |   ±30.74% |       20 |        10 |
-   275 |   3.63 ms |   ±46.30% |        5 |        20 |
-  1844 |           |           |        5 |        10 | **Remove benchee from process** (#6)
-  1866 |           |           |       10 |        10 |
-  1821 |           |           |       10 |        40 |
-  1850 |           |           |       20 |        40 |
-
+   ips | parallel | pool_size | What Changed? (PR #)
+------:|---------:|----------:|:---
+ 24925 |        5 |        10 | **Initial `pgbench` test** (#4)   
+ 24217 |       10 |        10 |
+ 24730 |       20 |        10 |
+ 30425 |        5 |        20 |
+ 30515 |        5 |        40 |
+  1652 |        5 |        10 | **Remove benchee from process** (#6)
+  1879 |       10 |        10 |
+  1930 |       20 |        10 |
+  1847 |       10 |        40 |
+  1875 |       20 |        40 |
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
@@ -116,16 +111,15 @@ For `pgbench`, the command was:
 mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_items.exs && pgbench -f pgbench/update_item_fast.sql -n -c 10 -j 5 -T 10 pghr
 ```
 
-   ips |   average | deviation | parallel | pool_size | What Changed? (PR #)
-------:|----------:|----------:|---------:|----------:|:---
-   296 |   3.37 ms |   ±34.19% |        5 |        10 | **Initial benchmark** (#2)
- 21694 |    461 µs |           |        5 |        10 | **Initial `pgbench` test** (#4)   
- 20673 |    484 µs |           |       10 |        10 |
- 21199 |    472 µs |           |       20 |        10 |
- 28062 |    713 µs |           |        5 |        20 |
- 29292 |   1.37 ms |           |        5 |        40 |
-  1660 |           |           |        5 |        10 | **Remove benchee from process** (#6)
-  1880 |           |           |       10 |        10 |
-  1785 |           |           |       10 |        40 |
-  1756 |           |           |       20 |        40 |
-  
+   ips | parallel | pool_size | What Changed? (PR #)
+------:|---------:|----------:|:---
+ 24925 |        5 |        10 | **Initial `pgbench` test** (#4)   
+ 24217 |       10 |        10 |
+ 24730 |       20 |        10 |
+ 30425 |        5 |        20 |
+ 30515 |        5 |        40 |
+  1662 |        5 |        10 | **Remove benchee from process** (#6)
+  1865 |       10 |        10 |
+  1854 |       20 |        10 |
+  1847 |       10 |        40 |
+  1844 |       20 |        40 |
