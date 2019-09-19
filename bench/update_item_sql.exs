@@ -32,6 +32,8 @@ ParallelBench.run(
 
     {:ok, _} =
       Repo.transaction(fn ->
+        SQL.query!(Repo, "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;")
+
         {:ok, %{num_rows: 1}} =
           SQL.query(
             Repo,
