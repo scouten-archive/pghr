@@ -23,6 +23,10 @@ item_ids =
     id
   end)
 
+IO.puts("Analyzing ...")
+
+SQL.query(Repo, "ANALYZE items;")
+
 IO.puts("Starting test ...")
 
 ParallelBench.run(
