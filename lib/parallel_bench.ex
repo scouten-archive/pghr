@@ -3,7 +3,7 @@ defmodule ParallelBench do
     parallel = Keyword.get(opts, :parallel, 1)
     duration = Keyword.get(opts, :duration, 10)
 
-    IO.puts "Running #{parallel} processes for #{duration} seconds"
+    IO.puts("Running #{parallel} processes for #{duration} seconds")
 
     iteration_count =
       1..parallel

@@ -1,3 +1,5 @@
+alias Ecto.Adapters.SQL
+
 alias Pghr.Item
 alias Pghr.Repo
 
@@ -23,19 +25,22 @@ item_ids =
 
 IO.puts("Starting test ...")
 
-Benchee.run(
-  %{
-    "update item" => fn ->
-      random_item_id = Enum.random(item_ids)
-      random = :rand.uniform(100_000_000_000_000)
+ParallelBench.run(
+  fn ->
+    random_item_id = Enum.random(item_ids)
+    random = :rand.uniform(100_000_000_000_000)
 
-      {:ok, _} =
-        Item
-        |> Repo.get_by(id: random_item_id)
-        |> Ecto.Changeset.change(%{mumble3: "New Mumble #{random}"})
-        |> Repo.update()
-    end
-  },
-  parallel: 5,
-  time: 10
+    {:ok, %{num_rows: 1}} =
+      SQL.query(
+        Repo,
+        """
+        UPDATE items
+        SET mumble3 = $1
+        WHERE id = $2;
+        """,
+        ["New Mumble #{random}", random_item_id]
+      )
+  end,
+  parallel: 10,
+  duration: 10
 )
