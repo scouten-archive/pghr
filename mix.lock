@@ -1,11 +1,8 @@
 %{
-  "benchee": {:hex, :benchee, "1.0.1", "66b211f9bfd84bd97e6d1beaddf8fc2312aaabe192f776e8931cb0c16f53a521", [:mix], [{:deep_merge, "~> 1.0", [hex: :deep_merge, optional: false]}]},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], []},
-  "db_connection": {:hex, :db_connection, "2.1.1", "a51e8a2ee54ef2ae6ec41a668c85787ed40cb8944928c191280fe34c15b76ae5", [:mix], [{:connection, "~> 1.0.2", [hex: :connection, optional: false]}]},
+  "db_connection": {:hex, :db_connection, "1.1.3", "89b30ca1ef0a3b469b1c779579590688561d586694a3ce8792985d4d7e575a61", [:mix], [{:connection, "~> 1.0.2", [hex: :connection, optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: true]}, {:sbroker, "~> 1.0", [hex: :sbroker, optional: true]}]},
   "decimal": {:hex, :decimal, "1.8.0", "ca462e0d885f09a1c5a342dbd7c1dcf27ea63548c65a65e67334f4b61803822e", [:mix], []},
-  "deep_merge": {:hex, :deep_merge, "1.0.0", "b4aa1a0d1acac393bdf38b2291af38cb1d4a52806cf7a4906f718e1feb5ee961", [:mix], []},
-  "ecto": {:hex, :ecto, "3.2.0", "940e2598813f205223d60c78d66e514afe1db5167ed8075510a59e496619cfb5", [:mix], [{:decimal, "~> 1.6", [hex: :decimal, optional: false]}, {:jason, "~> 1.0", [hex: :jason, optional: true]}]},
-  "ecto_sql": {:hex, :ecto_sql, "3.2.0", "751cea597e8deb616084894dd75cbabfdbe7255ff01e8c058ca13f0353a3921b", [:mix], [{:db_connection, "~> 2.1", [hex: :db_connection, optional: false]}, {:ecto, "~> 3.2.0", [hex: :ecto, optional: false]}, {:myxql, "~> 0.2.0", [hex: :myxql, optional: true]}, {:postgrex, "~> 0.15.0", [hex: :postgrex, optional: true]}, {:telemetry, "~> 0.4.0", [hex: :telemetry, optional: false]}]},
-  "postgrex": {:hex, :postgrex, "0.15.0", "dd5349161019caeea93efa42f9b22f9d79995c3a86bdffb796427b4c9863b0f0", [:mix], [{:connection, "~> 1.0", [hex: :connection, optional: false]}, {:db_connection, "~> 2.1", [hex: :db_connection, optional: false]}, {:decimal, "~> 1.5", [hex: :decimal, optional: false]}, {:jason, "~> 1.0", [hex: :jason, optional: true]}]},
-  "telemetry": {:hex, :telemetry, "0.4.0", "8339bee3fa8b91cb84d14c2935f8ecf399ccd87301ad6da6b71c09553834b2ab", [:rebar3], []},
+  "ecto": {:hex, :ecto, "2.2.12", "ce7f619c1451daad0f59e8f01fd8e2584226171dc273e3346444446a13d93943", [:mix], [{:db_connection, "~> 1.1", [hex: :db_connection, optional: true]}, {:decimal, "~> 1.2", [hex: :decimal, optional: false]}, {:mariaex, "~> 0.8.0", [hex: :mariaex, optional: true]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, optional: true]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:postgrex, "~> 0.13.0", [hex: :postgrex, optional: true]}, {:sbroker, "~> 1.0", [hex: :sbroker, optional: true]}]},
+  "poolboy": {:hex, :poolboy, "1.5.2", "392b007a1693a64540cead79830443abf5762f5d30cf50bc95cb2c1aaafa006b", [:rebar3], []},
+  "postgrex": {:hex, :postgrex, "0.13.5", "3d931aba29363e1443da167a4b12f06dcd171103c424de15e5f3fc2ba3e6d9c5", [:mix], [{:connection, "~> 1.0", [hex: :connection, optional: false]}, {:db_connection, "~> 1.1", [hex: :db_connection, optional: false]}, {:decimal, "~> 1.0", [hex: :decimal, optional: false]}]},
 }

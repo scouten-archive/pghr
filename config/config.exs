@@ -7,6 +7,7 @@ config :pghr,
   namespce: Pghr
 
 config :pghr, Pghr.Repo,
+  adapter: Ecto.Adapters.Postgres,
   database: "pghr",
   username: "postgres",
   password: "postgres",
