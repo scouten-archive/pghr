@@ -101,6 +101,29 @@ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_ite
   1847 |       10 |        40 |
   1875 |       20 |        40 |
 
+### Update Item Benchmark (Using `Repo.update_all/3`)
+
+See `bench/update_item_ecto_update_all.exs`.
+
+For `pgbench`, the command was:
+
+```
+mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_items.exs && pgbench -f pgbench/update_item_fast.sql -n -c 10 -j 5 -T 10 pghr
+```
+
+   ips | parallel | pool_size | What Changed? (PR #)
+------:|---------:|----------:|:---
+ 24925 |        5 |        10 | **Initial `pgbench` test** (#4)   
+ 24217 |       10 |        10 |
+ 24730 |       20 |        10 |
+ 30425 |        5 |        20 |
+ 30515 |        5 |        40 |
+  1843 |        5 |        10 | **Try `update_all`** (#7)
+  2031 |       10 |        10 |
+  2057 |       20 |        10 |
+  1971 |       10 |        40 |
+  2012 |       20 |        40 |
+
 ### Update Item Benchmark (Using Raw SQL Update)
 
 See `bench/update_item_sql.exs`.
