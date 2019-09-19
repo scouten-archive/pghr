@@ -118,7 +118,7 @@ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_ite
  24730 |       20 |        10 |
  30425 |        5 |        20 |
  30515 |        5 |        40 |
-  1843 |        5 |        10 | **Try `update_all`** (#7)
+  1843 |        5 |        10 | **Try `update_all`** (#8)
   2031 |       10 |        10 |
   2057 |       20 |        10 |
   1971 |       10 |        40 |
