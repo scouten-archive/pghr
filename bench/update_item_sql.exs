@@ -44,7 +44,8 @@ ParallelBench.run(
         SET mumble3 = $1
         WHERE id = $2;
         """,
-        ["New Mumble #{random}", random_item_id]
+        ["New Mumble #{random}", random_item_id],
+        cache_statement: "update_item_mumble"
       )
   end,
   parallel: 10,
