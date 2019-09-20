@@ -7,7 +7,7 @@ IO.puts("Deleting all existing items ...")
 
 Repo.delete_all(Item)
 
-seed_count = 500
+seed_count = 5000
 
 IO.puts("Creating #{seed_count} new items ...")
 
