@@ -5,10 +5,12 @@ IO.puts("Deleting all existing items ...")
 
 Repo.delete_all(Item)
 
-IO.puts("Creating 5,000 new items ...")
+seed_count = 5000
+
+IO.puts("Creating #{seed_count} new items ...")
 
 item_ids =
-  Enum.map(1..5000, fn _ ->
+  Enum.map(1..seed_count, fn _ ->
     random = :rand.uniform(100_000_000_000_000)
 
     {:ok, %{id: id}} =
@@ -21,11 +23,15 @@ item_ids =
     id
   end)
 
+first_item_id = List.first(item_ids)
+last_item_id = first_item_id + seed_count - 1
+^last_item_id = List.last(item_ids)
+
 IO.puts("Starting test ...")
 
 ParallelBench.run(
   fn ->
-    random_item_id = Enum.random(item_ids)
+    random_item_id = :rand.uniform(seed_count - 1) + first_item_id
     random = :rand.uniform(100_000_000_000_000)
 
     {:ok, _} =
@@ -35,5 +41,5 @@ ParallelBench.run(
       |> Repo.update()
   end,
   parallel: 10,
-  duration: 10
+  duration: 30
 )
