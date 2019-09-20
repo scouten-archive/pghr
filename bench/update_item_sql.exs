@@ -25,11 +25,15 @@ item_ids =
     id
   end)
 
+first_item_id = List.first(item_ids)
+last_item_id = first_item_id + seed_count - 1
+^last_item_id = List.last(item_ids)
+
 IO.puts("Starting test ...")
 
 ParallelBench.run(
   fn ->
-    random_item_id = Enum.random(item_ids)
+    random_item_id = :rand.uniform(seed_count - 1) + first_item_id
     random = :rand.uniform(100_000_000_000_000)
 
     {:ok, %{num_rows: 1}} =

@@ -52,7 +52,9 @@ tps = 20523.650252 (excluding connections establishing)
 
 The benchmark results described below were run on my 2015-era MacBook Pro. Tests were always run for 10 seconds with a 2-second warm-up. Varying levels of parallelism were used and noted in the test results.
 
-I want to emphasize a performance correlation I've observed on update with size of the existing table, so I'm removing previous results. All results here are run with 10 parallel clients and a pool size of 40, which had been shown in previous tests to be among the "best" configurations.
+~~I want to emphasize a performance correlation I've observed on update with size of the existing table, so I'm removing previous results. All results here are run with 10 parallel clients and a pool size of 40, which had been shown in previous tests to be among the "best" configurations.~~
+
+With `Enum.random/1` removed from the test, this claim is disproven. Still seeing a constant difference between `pgbench` and Ecto, but there are leads to follow.
 
 ### Create Item Benchmark
 
@@ -82,7 +84,7 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/cre
 Ecto:
 
 ```
-$ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/update_item_fast.exs 
+$ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/update_item_sql.exs
 ```
 
 Pgbench:
@@ -93,10 +95,10 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/cre
 
    ips | seed size | duration | Comments
 ------:|----------:|---------:|:---
-  6311 |       500 |       30 | Ecto
-  1781 |      5000 |       30 |
-  0200 |     50000 |       30 |
-  0021 |    500000 |       30 |
+ 12561 |       500 |       30 | Ecto
+ 12063 |      5000 |       30 |
+ 11756 |     50000 |       30 |
+ 11421 |    500000 |       30 |
  27972 |       500 |       30 | pgbench
  27486 |      5000 |       30 |
  26466 |     50000 |       30 |
