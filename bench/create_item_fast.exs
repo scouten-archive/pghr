@@ -22,4 +22,6 @@ ParallelBench.run(
   duration: 10
 )
 
-IO.inspect(SQL.query!(Repo, "SELECT count(*) FROM items;"), label: "\n\nCount of records now in DB")
+IO.inspect(SQL.query!(Repo, "SELECT count(*) FROM items;"),
+  label: "\n\nCount of records now in DB"
+)
