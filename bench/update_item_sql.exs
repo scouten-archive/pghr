@@ -7,10 +7,12 @@ IO.puts("Deleting all existing items ...")
 
 Repo.delete_all(Item)
 
-IO.puts("Creating 5,000 new items ...")
+seed_count = 5000
+
+IO.puts("Creating #{seed_count} new items ...")
 
 item_ids =
-  Enum.map(1..5000, fn _ ->
+  Enum.map(1..seed_count, fn _ ->
     random = :rand.uniform(100_000_000_000_000)
 
     {:ok, %{id: id}} =
@@ -42,5 +44,5 @@ ParallelBench.run(
       )
   end,
   parallel: 10,
-  duration: 10
+  duration: 30
 )

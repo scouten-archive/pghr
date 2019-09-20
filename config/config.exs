@@ -10,4 +10,5 @@ config :pghr, Pghr.Repo,
   database: "pghr",
   username: "postgres",
   password: "postgres",
-  hostname: "localhost"
+  hostname: "localhost",
+  pool_size: 40
