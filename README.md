@@ -84,7 +84,7 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/cre
 Ecto:
 
 ```
-$ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/update_item_sql.exs
+$ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/update_item_ecto_update_all.exs
 ```
 
 Pgbench:
@@ -95,10 +95,10 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/cre
 
    ips | seed size | duration | Comments
 ------:|----------:|---------:|:---
- 12561 |       500 |       30 | Ecto
- 12063 |      5000 |       30 |
- 11756 |     50000 |       30 |
- 11421 |    500000 |       30 |
+ 16163 |       500 |       30 | Ecto
+ 16367 |      5000 |       30 |
+ 15832 |     50000 |       30 |
+ 15409 |    500000 |       30 |
  27972 |       500 |       30 | pgbench
  27486 |      5000 |       30 |
  26466 |     50000 |       30 |
