@@ -2,8 +2,17 @@ defmodule ParallelBench do
   def run(run_fn, opts) do
     parallel = Keyword.get(opts, :parallel, 1)
     duration = Keyword.get(opts, :duration, 10)
+    profile? = Keyword.get(opts, :profile, false)
 
     IO.puts("Running #{parallel} processes for #{duration} seconds")
+
+    if profile? do
+      IO.puts("Capturing profiling data")
+    end
+
+    if profile? do
+      :fprof.trace([:start, verbose: true, procs: :all])
+    end
 
     iteration_count =
       1..parallel
@@ -17,6 +26,12 @@ defmodule ParallelBench do
         Task.await(task, 5000 + duration * 1000)
       end)
       |> Enum.sum()
+
+    if profile? do
+      :fprof.trace(:stop)
+      :fprof.profile()
+      :fprof.analyse(totals: false, dest: '/Users/scouten/Desktop/prof.analysis')
+    end
 
     IO.inspect(iteration_count, label: "\n\ntotal number of iterations")
     IO.inspect(iteration_count / duration, label: "iterations per second")
