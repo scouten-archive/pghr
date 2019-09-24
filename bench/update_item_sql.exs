@@ -29,12 +29,19 @@ first_item_id = List.first(item_ids)
 last_item_id = first_item_id + seed_count - 1
 ^last_item_id = List.last(item_ids)
 
+mumble_count = 100
+
+new_mumbles =
+  1..mumble_count
+  |> Enum.map(fn i -> {i, "New Mumble #{i}"} end)
+  |> Map.new()
+
 IO.puts("Starting test ...")
 
 ParallelBench.run(
   fn ->
     random_item_id = :rand.uniform(seed_count - 1) + first_item_id
-    random = :rand.uniform(100_000_000_000_000)
+    random_mumble = Map.get(new_mumbles, :rand.uniform(mumble_count))
 
     {:ok, %{num_rows: 1}} =
       SQL.query(
@@ -44,7 +51,7 @@ ParallelBench.run(
         SET mumble3 = $1
         WHERE id = $2;
         """,
-        ["New Mumble #{random}", random_item_id],
+        [random_mumble, random_item_id],
         cache_statement: "update_item_mumble"
       )
   end,
