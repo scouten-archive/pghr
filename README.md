@@ -90,16 +90,28 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run bench/update_i
 Pgbench:
 
 ```
-$ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/update_item_fast.sql -n -c 40 -j 10 -T 10 pghr
+$ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/update_item_fast.sql -n -c 40 -j 10 -T 30 pghr
 ```
 
-   ips | seed size | duration | Comments
-------:|----------:|---------:|:---
- 20089 |       500 |       30 | Ecto
- 20029 |      5000 |       30 |
- 19038 |     50000 |       30 |
- 18938 |    500000 |       30 |
- 27972 |       500 |       30 | pgbench
- 27486 |      5000 |       30 |
- 26466 |     50000 |       30 |
- 26309 |    500000 |       30 |
+   ips | seed size | duration | clients | Comments
+------:|----------:|---------:|--------:|:---
+ 23482 |       500 |       30 |      10 | Ecto
+ 22443 |      5000 |       30 |      10 |
+ 23407 |      5000 |       30 |      20 |
+ 26075 |      5000 |       30 |      30 |
+ 29035 |      5000 |       30 |      40 |
+ 30618 |      5000 |       30 |      50 | (pool size: 50)
+ 31043 |      5000 |       30 |      60 | (pool size: 60)
+ 31408 |      5000 |       30 |      70 | (pool size: 70)
+ 32745 |      5000 |       30 |      80 | (pool size: 80)
+ 32175 |      5000 |       30 |      90 | (pool size: 90)
+ 30147 |      5000 |       30 |     100 | (pool size: 100)
+ 22168 |     50000 |       30 |      10 |
+ 21188 |    500000 |       30 |      10 |
+ 46024 |       500 |       30 |      10 | pgbench
+ 47234 |      5000 |       30 |      10 |
+ 47294 |      5000 |       30 |      20 |
+ 48151 |      5000 |       30 |      30 |
+ 47264 |      5000 |       30 |      40 |
+ 47304 |     50000 |       30 |      10 |
+ 46712 |    500000 |       30 |      10 |
