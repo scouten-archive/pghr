@@ -115,3 +115,6 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/upd
  47264 |      5000 |       30 |      40 |
  47304 |     50000 |       30 |      10 |
  46712 |    500000 |       30 |      10 |
+     – |         – |        – |       – | –
+ 45590 |      5000 |       30 |      40 | pgbench (add notification trigger PR #16)
+ 10698 |      5000 |       30 |      40 | Ecto
