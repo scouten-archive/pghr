@@ -40,8 +40,11 @@ IO.puts("Starting test ...")
 
 ParallelBench.run(
   fn ->
-    random_item_id = :rand.uniform(seed_count - 1) + first_item_id
-    random_mumble = Map.get(new_mumbles, :rand.uniform(mumble_count))
+    random_item_id =
+      first_item_id + Integer.mod(:erlang.unique_integer([:positive]), seed_count - 1)
+
+    random_mumble =
+      Map.get(new_mumbles, 1 + Integer.mod(:erlang.unique_integer([:positive]), mumble_count - 1))
 
     {:ok, %{num_rows: 1}} =
       SQL.query(

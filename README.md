@@ -36,6 +36,8 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
  Y      |     8885 |         9464 |               94% |   
  N      |    21188 |        24168 |               88% | 1000 iterations per checkout (PR #20)
  Y      |     9141 |         9464 |               97% |   
+ N      |    21689 |        24168 |               88% | Remove random number (PR #21)
+ Y      |     9266 |         9464 |               98% |   
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
@@ -59,3 +61,5 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
  Y      |     9935 |         9501 |              105% |   
  N      |    29413 |        28175 |              104% | 1000 iterations per checkout (PR #20)
  Y      |     9959 |         9501 |              105% |   
+ N      |    29356 |        28175 |              104% | Remove random number (PR #21)
+ Y      |    10057 |         9501 |              106% |   
