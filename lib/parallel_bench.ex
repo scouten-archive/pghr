@@ -14,6 +14,16 @@ defmodule ParallelBench do
       :fprof.trace([:start, verbose: true, procs: :all])
     end
 
+    IO.puts("warming up")
+
+    Enum.each(1..1000, fn _ ->
+      run_fn.()
+    end)
+
+    Pghr.Repo.query!("TRUNCATE TABLE items", [])
+
+    IO.puts("Benchmarking")
+
     iteration_count =
       1..parallel
       |> Enum.map(fn _ ->
@@ -47,7 +57,7 @@ defmodule ParallelBench do
     else
       counter =
         Pghr.Repo.checkout(fn ->
-          iterate(run_fn, counter + 1, 500, end_time)
+          iterate(run_fn, counter + 1, 1000, end_time)
         end)
 
       checkout_and_iterate(run_fn, counter, end_time)

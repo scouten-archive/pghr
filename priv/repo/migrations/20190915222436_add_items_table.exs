@@ -7,5 +7,7 @@ defmodule Pghr.Migrations.AddItemsTable do
       add(:mumble2, :string, null: false)
       add(:mumble3, :string, null: false)
     end
+
+    execute("create sequence mumble_number")
   end
 end

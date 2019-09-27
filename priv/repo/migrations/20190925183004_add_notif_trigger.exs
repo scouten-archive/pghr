@@ -2,7 +2,7 @@ defmodule Pghr.Migrations.AddNotifTrigger do
   use Ecto.Migration
 
   def up do
-    execute """
+    execute("""
     CREATE OR REPLACE FUNCTION send_pool_change_notice()
       RETURNS trigger
       AS $function$
@@ -12,14 +12,14 @@ defmodule Pghr.Migrations.AddNotifTrigger do
       END
       $function$
       LANGUAGE plpgsql;
-    """
+    """)
 
-    execute """
+    execute("""
     CREATE TRIGGER pool_change_trigger
     AFTER INSERT OR UPDATE
     ON items
     FOR EACH ROW
     EXECUTE PROCEDURE send_pool_change_notice();
-    """
+    """)
   end
 end

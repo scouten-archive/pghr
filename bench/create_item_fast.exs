@@ -9,7 +9,7 @@ Repo.delete_all(Item)
 
 ParallelBench.run(
   fn ->
-    random = :rand.uniform(100_000_000_000_000)
+    random = :erlang.unique_integer([:positive])
 
     {:ok, _} =
       Repo.insert(%Item{
@@ -18,7 +18,7 @@ ParallelBench.run(
         mumble3: "Moar Mumble #{random}"
       })
   end,
-  parallel: 10,
+  parallel: 40,
   duration: 10
 )
 
