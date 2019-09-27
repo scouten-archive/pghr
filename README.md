@@ -34,6 +34,8 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
  Y      |     9445 |         9464 |              100% |   
  N      |    21090 |        24168 |               87% | Warm up and truncate (PR #19)
  Y      |     8885 |         9464 |               94% |   
+ N      |    21188 |        24168 |               88% | 1000 iterations per checkout (PR #20)
+ Y      |     9141 |         9464 |               97% |   
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
@@ -55,3 +57,5 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
  Y      |    10142 |         9501 |              107% |   
  N      |    29089 |        28175 |              103% | Warm up and truncate (PR #19)
  Y      |     9935 |         9501 |              105% |   
+ N      |    29413 |        28175 |              104% | 1000 iterations per checkout (PR #20)
+ Y      |     9959 |         9501 |              105% |   
