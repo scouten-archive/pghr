@@ -57,7 +57,7 @@ defmodule ParallelBench do
     else
       counter =
         Pghr.Repo.checkout(fn ->
-          iterate(run_fn, counter + 1, 500, end_time)
+          iterate(run_fn, counter + 1, 1000, end_time)
         end)
 
       checkout_and_iterate(run_fn, counter, end_time)
