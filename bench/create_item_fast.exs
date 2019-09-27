@@ -18,6 +18,7 @@ ParallelBench.run(
         mumble3: "Moar Mumble #{random}"
       })
   end,
+  truncate?: true,
   parallel: 40,
   duration: 30
 )
