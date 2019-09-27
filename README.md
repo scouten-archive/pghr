@@ -30,8 +30,8 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && pgbench -f pgbench/cre
 
 notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
 --------|---------:|-------------:|------------------:|-----
-      N |    21138 |        24168 |               87% | Baseline (PR #18)
-      Y |     9445 |         9464 |              100% |   
+ N      |    21138 |        24168 |               87% | Baseline (PR #18)
+ Y      |     9445 |         9464 |              100% |   
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
@@ -49,5 +49,5 @@ $ mix ecto.drop && mix ecto.create && mix ecto.migrate && mix run pgbench/seed_i
 
 notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
 --------|---------:|-------------:|------------------:|-----
-      N |    28579 |        28175 |              101% | Baseline (PR #18)
-      Y |    10142 |         9501 |              107% |   
+ N      |    28579 |        28175 |              101% | Baseline (PR #18)
+ Y      |    10142 |         9501 |              107% |   
