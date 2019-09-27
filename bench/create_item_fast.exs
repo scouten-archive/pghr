@@ -18,8 +18,8 @@ ParallelBench.run(
         mumble3: "Moar Mumble #{random}"
       })
   end,
-  parallel: 10,
-  duration: 10
+  parallel: 40,
+  duration: 30
 )
 
 IO.inspect(SQL.query!(Repo, "SELECT count(*) FROM items;"),
