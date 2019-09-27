@@ -2,15 +2,25 @@ defmodule ParallelBench do
   def run(run_fn, opts) do
     parallel = Keyword.get(opts, :parallel, 1)
     duration = Keyword.get(opts, :duration, 10)
-    profile? = Keyword.get(opts, :profile, false)
+    profile? = Keyword.get(opts, :profile?, false)
+    truncate? = Keyword.get(opts, :truncate?, false)
 
     IO.puts("Running #{parallel} processes for #{duration} seconds")
 
-    if profile? do
-      IO.puts("Capturing profiling data")
+    IO.puts("Warming up")
+
+    Enum.each(1..1000, fn _ ->
+      run_fn.()
+    end)
+
+    if truncate? do
+      Pghr.Repo.query!("TRUNCATE TABLE items", [])
     end
 
+    IO.puts("Benchmarking")
+
     if profile? do
+      IO.puts("Capturing profiling data")
       :fprof.trace([:start, verbose: true, procs: :all])
     end
 

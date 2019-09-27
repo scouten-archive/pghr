@@ -32,6 +32,8 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
 --------|---------:|-------------:|------------------:|-----
  N      |    21138 |        24168 |               87% | Baseline (PR #18)
  Y      |     9445 |         9464 |              100% |   
+ N      |    21090 |        24168 |               87% | Warm up and truncate (PR #19)
+ Y      |     8885 |         9464 |               94% |   
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
@@ -51,3 +53,5 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
 --------|---------:|-------------:|------------------:|-----
  N      |    28579 |        28175 |              101% | Baseline (PR #18)
  Y      |    10142 |         9501 |              107% |   
+ N      |    29089 |        28175 |              103% | Warm up and truncate (PR #19)
+ Y      |     9935 |         9501 |              105% |   
