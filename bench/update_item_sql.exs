@@ -55,6 +55,6 @@ ParallelBench.run(
         cache_statement: "update_item_mumble"
       )
   end,
-  parallel: 10,
+  parallel: 40,
   duration: 30
 )
