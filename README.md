@@ -38,6 +38,8 @@ notify? | Ecto ips | pg_bench ips | Ecto % of pgbench | Comments
  Y      |     9141 |         9464 |               97% |   
  N      |    21689 |        24168 |               88% | Remove random number (PR #21)
  Y      |     9266 |         9464 |               98% |   
+ N      |    21689 |        22796 |               95% | Use sequence in pgbench_create (PR #22)
+ Y      |     9266 |         9803 |               95% |   
 
 ### Update Item Benchmark (Using Raw SQL Update)
 
